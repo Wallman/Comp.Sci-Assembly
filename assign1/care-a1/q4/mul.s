@@ -1,5 +1,5 @@
-	.globl _times
-_times:
+	.globl times
+times:
 	movl $0, %eax		# result = 0
 	movl $0, %ecx		# counter = 0
 loop:	
