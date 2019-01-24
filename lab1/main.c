@@ -6,7 +6,7 @@
 int times(int, int);
 
 int main () {
-    int a = 6;
+    int a = 7;
     int b = 9;
     int answer = times(a, b);
 

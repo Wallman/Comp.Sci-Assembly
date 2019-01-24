@@ -1,4 +1,6 @@
 
-	.globl times
-times:	leal (%edi, %esi, 4), %eax
+	.globl _times
+_times:	mov $0, %eax
+	leal (%eax, %edi, 4), %eax
+	leal (%eax, 4), %eax
 	ret

@@ -12,7 +12,7 @@ _main:                                  ## @main
 	.cfi_def_cfa_register %rbp
 	subq	$32, %rsp
 	movl	$0, -4(%rbp)
-	movl	$6, -8(%rbp)
+	movl	$7, -8(%rbp)
 	movl	$9, -12(%rbp)
 	movl	-8(%rbp), %edi
 	movl	-12(%rbp), %esi
