@@ -12,18 +12,18 @@ loop:
 	cmpl $0, %ecx  
 	jl end
 
-	movl $1, %esi			# esi = 1
-	shll %cl, %esi			# 1 << (ecx times)
-	orl %esi, %eax			# bitwise AND
+	movl $1, %esi		# set kth bit to 1
+	shll %cl, %esi
+	orl %esi, %eax
 
-	mov %eax, %edx
-	imull %edx, %edx			# edx = x*x
-	cmpl %edx, %edi			# edi - edx
-	jl undo				# if edx > edi jmp shift
-	decl %ecx			# else iterate again
+	mov %eax, %edx		# if x*x > x set kth bit to 0
+	imull %edx, %edx
+	cmpl %edx, %edi
+	jl undo			# else iterate again
+	decl %ecx
 	jmp loop
 undo:
-	xorl %esi, %eax
+	xorl %esi, %eax		# set kth bit to 0
 	decl %ecx
 	jmp loop
 end:	
