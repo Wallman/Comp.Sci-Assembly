@@ -1,0 +1,3 @@
+	.globl conv
+conv:
+	ret
