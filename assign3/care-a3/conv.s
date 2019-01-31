@@ -19,8 +19,11 @@ loop:	cmpl %ecx, %edx
 	movl %ecx, %r10d		# negate ecx for backwards loop
 	neg %r10d
 
-	movl (%edi, %ecx, 8), %r9d	# r9d = signal[m]
-	imull (%r8d, %r10d, 8), %r9d	# r9d *= h[n-1-m]
+	movl $0, %r9d			# r9d = 0
+	cmp %rsi, (%r8d, %r10d, 8)	# if r9d < h then r9d = h[n-1-m]
+	cmovg (%r8d, %r10d, 8), %r9d
+
+	imull (%edi, %ecx, 8), %r9d	# r9d *= signal[m]
 	addl %r9d, %eax			# eax = r9d
 
 	incl %ecx
