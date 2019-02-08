@@ -1,9 +1,18 @@
 	.globl get_byte_by_addr
 get_byte_by_addr:
-	movl %edi, %eax   
-	
-	# place your code for Part 3 here
+	mov (%rdi, %rsi, 1), %al        # new solution
+        ret
 
-	# end of Part 3
+	movl $0, %eax			# old solution
+	movl $0, %ecx
+	movq (%rdi), %rdx
 
+loop:		
+	cmp %ecx, %esi
+	jle end
+	shr $8, %rdx
+	dec %ecx
+	jmp loop
+end:
+	movb %dl, %al
 	ret
