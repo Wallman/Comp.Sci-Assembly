@@ -17,7 +17,7 @@ loop:
 	pushq %r10
 	movl %r10d, %edi	# prepare arg1
 	addl $1, %edi
-	movl $ecx, %esi		# prepare arg2
+	movl %ecx, %esi		# prepare arg2
 	call min
 	movl %eax, %r11d		# r11d = min(i+1, m)
 	popq %r10			# restore variables n, m, counter
