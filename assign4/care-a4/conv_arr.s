@@ -18,7 +18,7 @@ loop:
 	movl %r10d, %edi	# prepare arg1
 	addl $1, %edi
 	movl %ecx, %esi		# prepare arg2
-	call min
+	call _min
 	movl %eax, %r11d		# r11d = min(i+1, m)
 	popq %r10			# restore variables n, m, counter
 	popq %rcx
@@ -28,8 +28,8 @@ loop:
 	pushq %rcx
 	pushq %r10
 	pushq %r11
-	movl %r10d, %eax	# temp = i+1
-	addl $1, %eax
+	movl %r10d, %eax	# temp = i
+	addl $1, %eax		# temp++
 	movl %ecx, %edi		# prepare args
 	addl %esi, %edi
 	subl %eax, %edi
@@ -53,9 +53,8 @@ loop:
 	movl %r10d, %eax 	# prepare arg1
 	addl $1, %eax
 	subl %r11d, %eax
-	addl %eax, %edi
-	movl %edx, %esi		# prepare arg2
-	addl %r9d, %esi
+	leal (%edi, %eax, 1), %edi
+	leal (%edx, %r9d, 1), %esi	# prepare arg2
 	movl %r11d, %edx	# prepare arg3
 	subl %r9d, %edx
 	call conv 			# call conv
@@ -65,7 +64,10 @@ loop:
 	popq %rdi
 	popq %rsi
 	popq %r8
-	movl %eax, (%r8d, %r10d, 1)	# set result[i]
+	pushq %r8			# save %r8
+	leal (%r8d, %r10d, 1), %r8d	# %r8 = r8[i]
+	movl %eax, %r8d		# result[i] = conv()
+	popq %r8
 
 	decl %r10d
 	jmp loop
