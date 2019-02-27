@@ -1,6 +1,7 @@
 
 #include "output.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 float sum_float(float *, int);
 
@@ -14,9 +15,12 @@ float u2f(unsigned x) {
 
 
 // 3(a):  insert supporting code for qsort(.., .., .., ..) here:
-
-
-
+int compare (const void * a, const void * b)
+{
+  float fa = *(const float*) a;
+  float fb = *(const float*) b;
+  return (fa > fb) - (fa < fb);
+}
 
 
 
@@ -40,7 +44,7 @@ void main () {
 
     printf(" The total after sorting: ");
     // 3(a):  insert code for sorting of arr1[] here:
-    // qsort(arr1, .., .., ..);
+    qsort(arr1, 24, sizeof(float), compare);
     f_printbits(sum_float(arr1, 24)); putchar('\n');
 
 
@@ -58,7 +62,7 @@ void main () {
 
     printf(" The total after sorting: ");
     // 3(a):  insert code for sorting of arr2[] here:
-    // qsort(arr2, .., .., ..);
+    qsort(arr2, 50, sizeof(float), compare);
     f_printbits(sum_float(arr2, 50)); putchar('\n');
 
     puts("");
