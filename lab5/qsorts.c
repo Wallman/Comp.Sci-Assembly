@@ -9,7 +9,7 @@ void qsort295_1(int *A, int n) {
     int q;
     if (n <= 1) return;
     q = partition_1(A, n);
-    qsort295_1(A, q + 1);
+    qsort295_1(A, q);
     qsort295_1(A + q + 1, n - q - 1);
 }  // qsort295_1  (Hoare Partition)
 

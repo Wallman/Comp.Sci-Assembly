@@ -32,16 +32,15 @@ void main () {
     printf("It took %ld microseconds to initialize the array.\n", ((end.ru_utime.tv_sec * 1000000) + end.ru_utime.tv_usec) - start.ru_utime.tv_usec);
 
     // For Part 2:
-    
-    //getrusage(RUSAGE_SELF, &start);
-    qsort295_1(A, N);
-    //getrusage(RUSAGE_SELF, &end);
-    //printf("It took %ld microseconds to do QS1.\n", ((end.ru_utime.tv_sec * 1000000) + end.ru_utime.tv_usec) - start.ru_utime.tv_usec);
+	
+	getrusage(RUSAGE_SELF, &start);
+	qsort295_1(A, N);
+    getrusage(RUSAGE_SELF, &end);
+    printf("It took %ld microseconds to do QS1.\n", ((end.ru_utime.tv_sec * 1000000) + end.ru_utime.tv_usec) - start.ru_utime.tv_usec);
 
-    //getrusage(RUSAGE_SELF, &start);
-    //qsort295_2(A, N);
-    //getrusage(RUSAGE_SELF, &end);
-    //printf("It took %ld microseconds to do QS2.\n", ((end.ru_utime.tv_sec * 1000000) + end.ru_utime.tv_usec) - start.ru_utime.tv_usec);
+	getrusage(RUSAGE_SELF, &start);
+    qsort295_2(A, N);
+    getrusage(RUSAGE_SELF, &end);
+    printf("It took %ld microseconds to do QS2.\n", ((end.ru_utime.tv_sec * 1000000) + end.ru_utime.tv_usec) - start.ru_utime.tv_usec);
 }
-
 
