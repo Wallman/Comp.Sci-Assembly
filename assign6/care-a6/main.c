@@ -10,7 +10,7 @@ int lsearch_1(int *A, int n, int target);
 #include <sys/resource.h>
 
 #define N 5000000
-#define NTESTS 50
+#define NTESTS 400
 
 int A[N];
 
