@@ -1,9 +1,9 @@
 
 void compute_ranks(float *F, int N, int *R, float *avg, float *passing_avg, int *num_passed) {
     int i, j;
-    *num_passed = 0;
-    *avg = 0.0;
-    *passing_avg = 0.0;
+    int Tnum_passed = 0;
+    int Tavg = 0.0;
+    int Tpassing_avg = 0.0;
 
     // init ranks
     for (i = 0; i < N; i++) {
@@ -21,16 +21,20 @@ void compute_ranks(float *F, int N, int *R, float *avg, float *passing_avg, int 
 
     // compute averages
     for (i = 0; i < N; i++) {
-        *avg += F[i];
+        Tavg += F[i];
         if (F[i] >= 50.0) {
-            *passing_avg += F[i];
-            *num_passed += 1;
+            Tpassing_avg += F[i];
+            Tnum_passed += 1;
         }
     }
 
     // check for div by 0
-    if (N > 0) *avg /= N;
-    if (*num_passed) *passing_avg /= *num_passed;
+    if (N > 0) Tavg /= N;
+    if (num_passed) Tpassing_avg /= Tnum_passed;
+
+    *num_passed = Tnum_passed;
+    *avg = Tavg;
+    *passing_avg = Tpassing_avg;
 
 } // compute_ranks
 
