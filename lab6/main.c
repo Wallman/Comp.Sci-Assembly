@@ -18,6 +18,7 @@ int cycles[NTESTS];
 long total;
 int start_time = 150;
 int end_time = 125;
+int samples = 0;
 
 void main () {
     srand(time(NULL));
@@ -35,11 +36,27 @@ void main () {
 
     // Run tests
     for (i = 0; i < NTESTS; i++) {
-        getrusage(RUSAGE_SELF, &start);
+        //getrusage(RUSAGE_SELF, &start);
+        asm volatile (
+            "cpuid\n\t"
+            "rdtscp\n\t"
+            "mov %%eax, %0\n\t"
+            : "=r" (start_time)
+            : 
+            : "rax", "rbx", "rcx", "rdx"
+            );
         P = sum_plus(A, N);
-        getrusage(RUSAGE_SELF, &end);
-        cycles[i] = (end.ru_utime.tv_sec - start.ru_utime.tv_sec) * 10000000 + end.ru_utime.tv_usec - start.ru_utime.tv_usec;
-
+        asm volatile (
+            "cpuid\n\t"
+            "rdtscp\n\t"
+            "mov %%eax, %0\n\t"
+            : "=r" (end_time)
+            : 
+            : "rax", "rbx", "rcx", "rdx"
+            );
+        //getrusage(RUSAGE_SELF, &end);
+        //cycles[i] = (end.ru_utime.tv_sec - start.ru_utime.tv_sec) * 10000000 + end.ru_utime.tv_usec - start.ru_utime.tv_usec;
+        cycles[i] = end_time - start_time;
         if (P != Q) {
             perror("Error:  sum mismatch"); return;
         }
@@ -50,9 +67,12 @@ void main () {
     total = 0;
     for (i = 0; i < NTESTS; i++) {
         printf("Sample %d completed in %d cycles.\n", i+1, cycles[i]);
-        total += cycles[i];
+        if (cycles[i] < 4000) {
+            total += cycles[i];
+            samples++;
+        }
     }
-    printf("Average of %ld cycles.\n", total/NTESTS);
+    printf("Average of %ld cycles.\n", total/samples);
 
     return;
 }

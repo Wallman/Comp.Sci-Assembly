@@ -50,8 +50,8 @@ void main () {
             : "rax", "rbx", "rcx", "rdx"
             );
 
-        //P[i] = lsearch(A, N, i);     // choose array
-        Q[i] = LLsearch(L, i);       // choose LL
+        P[i] = lsearch(A, N, i);     // choose array
+        //Q[i] = LLsearch(L, i);       // choose LL
 
         asm volatile (
             "cpuid\n\t"
