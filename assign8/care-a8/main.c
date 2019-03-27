@@ -4,7 +4,7 @@
 
 void compute_ranks(float *F, int N, int *R, float *avg, float *passing_avg, int *num_passed);
 
-#define N 50
+#define N 30
 #define NTESTS 20
 #define NAMELENGTH 20
 
