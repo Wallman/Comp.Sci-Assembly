@@ -22,7 +22,7 @@ void compute_ranks(float *F, int N, int *R, float *avg, float *passing_avg, int 
     struct Grade grades[N];
 
     // combined loop instead of having multiple
-    for (i = N-1; i != 0; i--) {
+    for (i = 0; i < N; i++) {
         // init grades struct
         grades[i].grade = F[i];
         grades[i].initialPosition = i;
@@ -40,8 +40,7 @@ void compute_ranks(float *F, int N, int *R, float *avg, float *passing_avg, int 
     qsort(grades, N, sizeof(struct Grade), compare);
 
     // compute ranks
-    for (i = N-1; i != 0; i--)
-    {
+    for (i = 0; i < N; i++) {
         int position = grades[i].initialPosition;
         R[position] = i + 1;
     }
