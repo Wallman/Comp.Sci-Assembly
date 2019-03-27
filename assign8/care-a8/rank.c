@@ -3,7 +3,7 @@
 
 // struct to keep grade correlated with initial position
 struct Grade {
-        int initialPosition;
+        unsigned int initialPosition;
         float grade;
     };
 
@@ -15,42 +15,43 @@ int compare(const void *p, const void *q) {
 } 
 
 void compute_ranks(float *F, int N, int *R, float *avg, float *passing_avg, int *num_passed) {
-    int i, j;
-    int Tnum_passed = 0;        // Remove memory aliasing
-    int Tavg = 0.0;
-    int Tpassing_avg = 0.0;
-
-    // init grades struct
+    unsigned int i, j;
+    unsigned int Tnum_passed = 0;        // Remove memory aliasing
+    float Tavg = 0.0;
+    float Tpassing_avg = 0.0;
     struct Grade grades[N];
-    for (i = 0; i < N; i++) {
+
+    // combined loop instead of having multiple
+    for (i = N-1; i != 0; i--) {
+        // init grades struct
         grades[i].grade = F[i];
         grades[i].initialPosition = i;
+
+        // compute averages
+        Tavg += F[i];
+        // replaced branching conditional for calculating passing_avg with OR statement.
+        float tmpGrade = F[i];
+        tmpGrade >= 50 || (tmpGrade = 0);
+        Tpassing_avg += tmpGrade;
+        Tnum_passed += (tmpGrade >= 50);
     }
 
     // sort grades
     qsort(grades, N, sizeof(struct Grade), compare);
 
     // compute ranks
-    for (i = 0; i < N; i++)
+    for (i = N-1; i != 0; i--)
     {
         int position = grades[i].initialPosition;
         R[position] = i + 1;
     }
 
-    // compute averages
-    for (i = 0; i < N; i++) {
-        Tavg += F[i];
-        if (F[i] >= 50.0) {
-            Tpassing_avg += F[i];
-            Tnum_passed += 1;
-        }
-    }
-
     // check for div by 0
     if (N > 0) Tavg /= N;
-    if (num_passed) Tpassing_avg /= Tnum_passed;
+    if (Tnum_passed) Tpassing_avg /= Tnum_passed;
 
-    *num_passed = Tnum_passed;  // Assign original pointers
+    // Assign original pointers to correct values
+    *num_passed = Tnum_passed;
     *avg = Tavg;
     *passing_avg = Tpassing_avg;
 
