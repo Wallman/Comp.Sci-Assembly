@@ -6,15 +6,13 @@
 
 
 
-#define M 4
-#define N 4
+#define M 512
+#define N 512
 
 #define NTESTS 10
 
 
 long total;
-
-int **transpose(int **A, int rA, int cA);
 
 void main () {
     srand(time(NULL));
@@ -54,19 +52,4 @@ void main () {
     freeMatrix(A);
     freeMatrix(B);
     return;
-}
-
-// Transpose matrix
-int **transpose(int **A, int rA, int cA) {
-    int **res = newMatrix(rA, cA);
-    if (res == NULL) return res;
-
-    int i, j;
-    for (i = 0; i < rA; i++) {
-        for (j = 0; j < cA; j++) {
-            res[j][i] = A[i][j];
-        }
-    }
-
-    return res;
 }

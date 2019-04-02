@@ -10,7 +10,7 @@ int **mul(int **A, int rA, int cA, int **B, int rB, int cB) {
     }
 
 
-    /*
+    
     // alg1
     int **C = newMatrix(rA, cB);
     if (C == NULL) return C;
@@ -26,56 +26,69 @@ int **mul(int **A, int rA, int cA, int **B, int rB, int cB) {
             C[i][j] = sum;
         }
     }
-    */
+    
 
 
-    /*
-    // alg2
-    int **C = newMatrix(rA, cB);
-    if (C == NULL) return C;
+    
+    // // alg2
+    // int **C = newMatrix(rA, cB);
+    // if (C == NULL) return C;
 
-    int i, j, k;
-    int sum, r;
-    for (i = 0; i < rA; i++) {
-        for (j = 0; j < cB; j++) {
-            C[i][j] = 0;
-        }
-    }
-    for (j = 0; j < cB; j++) {
-        for (k = 0; k < cA; k++) {
-            r = B[k][j];
-            for (i = 0; i < rA; i++) {
-                C[i][j] += A[i][k] * r;
-            }
-        }
-    }
-    */
+    // int i, j, k;
+    // int sum, r;
+    // for (i = 0; i < rA; i++) {
+    //     for (j = 0; j < cB; j++) {
+    //         C[i][j] = 0;
+    //     }
+    // }
+    // for (j = 0; j < cB; j++) {
+    //     for (k = 0; k < cA; k++) {
+    //         r = B[k][j];
+    //         for (i = 0; i < rA; i++) {
+    //             C[i][j] += A[i][k] * r;
+    //         }
+    //     }
+    // }
+    
 
 
-    /*
-    // alg3
-    int **C = newMatrix(rA, cB);
-    if (C == NULL) return C;
+    
+    // // alg3
+    // int **C = newMatrix(rA, cB);
+    // if (C == NULL) return C;
 
-    int i, j, k;
-    int sum, r;
-    for (i = 0; i < rA; i++) {
-        for (j = 0; j < cB; j++) {
-            C[i][j] = 0;
-        }
-    }
-    for (i = 0; i < rA; i++) {
-        for (k = 0; k < cA; k++) {
-            r = A[i][k];
-            for (j = 0; j < cB; j++) {
-                C[i][j] += B[k][j] * r;
-            }
-        }
-    }
-    */
+    // int i, j, k;
+    // int sum, r;
+    // for (i = 0; i < rA; i++) {
+    //     for (j = 0; j < cB; j++) {
+    //         C[i][j] = 0;
+    //     }
+    // }
+    // for (i = 0; i < rA; i++) {
+    //     for (k = 0; k < cA; k++) {
+    //         r = A[i][k];
+    //         for (j = 0; j < cB; j++) {
+    //             C[i][j] += B[k][j] * r;
+    //         }
+    //     }
+    // }
+    
 
 
     return C;
 }
 
+// Transpose matrix
+int **transpose(int **A, int rA, int cA) {
+    int **res = newMatrix(rA, cA);
+    if (res == NULL) return res;
 
+    int i, j;
+    for (i = 0; i < rA; i++) {
+        for (j = 0; j < cA; j++) {
+            res[j][i] = A[i][j];
+        }
+    }
+
+    return res;
+}

@@ -4,4 +4,6 @@
 
 int **mul(int **A, int rA, int cA, int **B, int rB, int cB);
 
+int **transpose(int **A, int rA, int cA);
+
 #endif // _MUL_H_
