@@ -4,6 +4,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Transpose matrix
+int **transpose(int **A, int rA, int cA) {
+    int **res = newMatrix(rA, cA);
+    if (res == NULL) return res;
+
+    int i, j;
+    for (i = 0; i < rA; i++) {
+        for (j = 0; j < cA; j++) {
+            res[j][i] = A[i][j];
+        }
+    }
+
+    return res;
+}
+
 int **mul(int **A, int rA, int cA, int **B, int rB, int cB) {
     if (cA != rB) {
         printf("Incompatible multiplication: %d x %d times a %d x %d\n", rA, cA, rB, cB); exit(-1);
@@ -11,7 +26,7 @@ int **mul(int **A, int rA, int cA, int **B, int rB, int cB) {
 
 
     
-    // alg1
+    // // alg1
     int **C = newMatrix(rA, cB);
     if (C == NULL) return C;
 
@@ -75,20 +90,26 @@ int **mul(int **A, int rA, int cA, int **B, int rB, int cB) {
     
 
 
+
+    // alg4 for transpose
+    // int **C = newMatrix(rA, cB);
+    // if (C == NULL) return C;
+
+    // int **transposed = transpose(B, rB, cB);
+
+    // int i, j, k;
+    // int sum, r;
+    // for (i = 0; i < rA; i++) {
+    //     for (j = 0; j < cB; j++) {
+    //         sum = 0;
+    //         for (k = 0; k < cA; k++) {
+    //             sum += A[i][k] * transposed[j][k];
+    //         }
+    //         C[i][j] = sum;
+    //     }
+    // }
+
+
+
     return C;
-}
-
-// Transpose matrix
-int **transpose(int **A, int rA, int cA) {
-    int **res = newMatrix(rA, cA);
-    if (res == NULL) return res;
-
-    int i, j;
-    for (i = 0; i < rA; i++) {
-        for (j = 0; j < cA; j++) {
-            res[j][i] = A[i][j];
-        }
-    }
-
-    return res;
 }

@@ -24,14 +24,13 @@ void main () {
     long trace = 0;
 
 
-    // Build matrix
+    // Build matrix random
     for (i = 0; i < M; i++) {
         for (j = 0; j < N; j++) {
             A[i][j] = rand() % 10 - 5;
             B[j][i] = A[i][j];
         }
     }
-
 
     //printMatrix(A, M, N);
     //printMatrix(B, N, M);
